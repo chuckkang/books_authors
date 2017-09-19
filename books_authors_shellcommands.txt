@@ -1,0 +1,52 @@
+Create 5 books with the following names: C sharp, Java, Python, PHP, Ruby
+-  X5's - Book.objects.create(name="", desc="")
+
+Create 5 different authors: Mike, Speros, John, Jadee, Jay
+-  X5's - Author.objects.create(first_name="", last_name="")
+
+Add a new field in the authors table called 'notes'.  Make this a TextField.  Successfully create and run the migration files.
+- in MODEL:
+	- notes = models.TextField()
+
+Change the name of the 5th book to C#
+>> b5 = Book.objects.get(id=5)
+>> b5.name = "C#"
+>> b5.save()
+
+Change the first_name of the 5th author to Ketul
+>> a5 = Author.objects.get(id=5)
+>> a5.first_name = "Ketul"
+>> a5.save()
+
+Assign the first author to the first 2 books
+>> a1 = Author.objects.get(id=5)
+>> b1 = Book.objects.get(id=1)
+>> b2 = Book.objects.get(id=2)
+>> a1.books(<-- this is the join name in model).add(b1)
+>> a1.books(<-- this is the join name in model).add(b2)
+
+Assign the second author to the first 3 books
+>> (Author.objects.get(id=2)).books.add(Book.objects.get(id=1)) ETC
+>> a2 = Author.objects.get(id=2)
+>> a2.books.add(Book.objects.get(id=1))
+
+Assign the third author to the first 4 books
+>> (Author.objects.get(id=3)).books.add(Book.objects.get(id=1)) ETC for all books
+
+Assign the fourth author to the first 5 books (or in other words, all the books)
+(Author.objects.get(id=4)).books.add(Book.objects.get(id=1)) ETC for all books
+
+For the 3rd book, retrieve all the authors
+>> (Book.objects.get(id=3)).authors.all()
+
+For the 3rd book, remove the first author
+>> (Book.objects.get(id=3)).authors.first().delete()
+
+For the 2nd book, add the 5th author as one of the authors
+>> (Book.objects.get(id=2)).authors.add(Author.objects.get(id=5))
+
+Find all the books that the 3rd author is part of
+>>  Author.objects.get(id=3).books.all()
+
+Find all the books that the 2nd author is part of
+>> Author.objects.get(id=2).books.all()
